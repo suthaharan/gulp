@@ -4,6 +4,20 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     sass = require('gulp-ruby-sass');
 var browserSync = require('browser-sync').create();
+var autoprefixer = require('gulp-autoprefixer');
+var csso = require('gulp-csso');
+// Set the browser that you want to support
+const AUTOPREFIXER_BROWSERS = [
+    'ie >= 10',
+    'ie_mob >= 10',
+    'ff >= 30',
+    'chrome >= 34',
+    'safari >= 7',
+    'opera >= 23',
+    'ios >= 7',
+    'android >= 4.4',
+    'bb >= 10'
+];
 
 gulp.task('browserSync', function() {
     browserSync.init({
@@ -34,6 +48,19 @@ gulp.task('js', function(done) {
     done();
 });
 
+gulp.task('styles', function() {
+    gulp.src(['src/css/*.css'])
+        .pipe(autoprefixer({ browsers: AUTOPREFIXER_BROWSERS }))
+        // Minify the file
+        .pipe(csso())
+        // Output
+        .pipe(concat('style.css'))
+        .pipe(gulp.dest('css'))
+        .pipe(browserSync.reload({
+            stream: true
+        }))
+});
+
 // Below 'js' is the name of the task and the final scripts
 gulp.task('sass', function(done) {
     return sass(sassSources, {
@@ -56,6 +83,19 @@ gulp.task('html', function(done) {
     done();
 });
 
+// Gulp task to minify JavaScript files
+gulp.task('scripts', function() {
+    return gulp.src('src/scripts/vendor/*.js')
+        // Minify the file
+        .pipe(uglify())
+        .pipe(concat('vendor.js'))
+        // Output
+        .pipe(gulp.dest('js'))
+        .pipe(browserSync.reload({
+            stream: true
+        }))
+});
+
 // Watch jsSources and if one of the file changes then execute javascript tasks 'js', 'watch' in order
 gulp.task('watch', function() {
     gulp.watch(jsSources, gulp.series(gulp.parallel('js')));
@@ -64,7 +104,7 @@ gulp.task('watch', function() {
 });
 
 // Default task that runs automatically - a series of task
-gulp.task('default', gulp.series(gulp.parallel('js', 'sass', 'browserSync', 'watch'), function() {
+gulp.task('default', gulp.series(gulp.parallel('js', 'sass', 'styles', 'scripts', 'browserSync', 'watch'), function() {
     // do something
 
 }));

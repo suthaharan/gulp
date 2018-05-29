@@ -92,3 +92,6 @@ $ npm install -S gulp-ruby-sass
 
 ** In windows, you will have to setup Ruby and then install sass. If not, gulp will error out
 $ gem install sass
+
+## STEP 7
+Adding bootstrap files, minify css and javascript
