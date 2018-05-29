@@ -1,3 +1,3 @@
 function enterYourName() {
-    return "Enter your name";
+    return "Enter your full name please";
 }

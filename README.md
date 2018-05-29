@@ -79,3 +79,10 @@ $ gulp
 Gulp will continue to watch for any changes in jsSources folder and if any files in it are modified and saved, then it gets automatically saved under js/ folder
 
 
+## STEP 5
+Live reload changes to a server to reflect changes real time
+
+$ npm install browser-sync --save-dev 
+
+Using Browsersync to detect changes reload browser
+
