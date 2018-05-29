@@ -1,7 +1,10 @@
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
     uglify = require('gulp-uglify'),
-    concat = require('gulp-concat');
+    concat = require('gulp-concat'),
+    livereload = require('gulp-livereload'),
+    lr = require('tiny-lr'),
+    server = lr();
 
 // You can use wildcard characters to include all files in a specific folder
 // To have control over which file is to be compiled first and which to be next, include files in an array
@@ -17,3 +20,13 @@ gulp.task('js', function(done) {
         .pipe(gulp.dest('js'));
     done();
 });
+
+// Watch jsSources and if one of the file changes then execute javascript tasks 'js', 'watch' in order
+gulp.task('watch', function() {
+    gulp.watch(jsSources, gulp.series(gulp.parallel('js')));
+});
+
+// Default task that runs automatically - a series of task
+gulp.task('default', gulp.series(gulp.parallel('js', 'watch'), function() {
+    // do something
+}));

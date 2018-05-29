@@ -1,3 +1,3 @@
 function enterYourName() {
-    alert("Enter your name");
+    return "Enter your name";
 }

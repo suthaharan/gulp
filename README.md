@@ -68,3 +68,14 @@ $ gulp js
 ** Note: Had issues with gulp, gulp-cli not being recognized globally. Had to install these packages globally in order to execute this command.
 
 You can now find script.js file under js/ folder.
+
+## STEP 4
+Setting up multiple tasks, streamline and live reload changes
+
+Tasks have to be watched in parallel or in sync with recent addition to Gulp changes
+
+$ gulp 
+
+Gulp will continue to watch for any changes in jsSources folder and if any files in it are modified and saved, then it gets automatically saved under js/ folder
+
+
