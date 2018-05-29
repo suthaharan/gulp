@@ -86,3 +86,9 @@ $ npm install browser-sync --save-dev
 
 Using Browsersync to detect changes reload browser
 
+## STEP 6
+SASS Compiling
+$ npm install -S gulp-ruby-sass
+
+** In windows, you will have to setup Ruby and then install sass. If not, gulp will error out
+$ gem install sass
